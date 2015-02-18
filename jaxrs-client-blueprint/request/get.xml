@@ -1,0 +1,10 @@
+<Message Operation="GET">
+    <Customer>
+        <id>123</id>
+        <name>John</name>
+    </Customer>
+    <Customer>
+        <id>133</id>
+        <name>Black</name>
+    </Customer>
+</Message>

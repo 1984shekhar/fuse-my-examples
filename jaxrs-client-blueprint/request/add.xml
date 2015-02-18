@@ -1,0 +1,10 @@
+<Message Operation="ADD">
+    <Customer>
+        <id>124</id>
+        <name>Joe</name>
+    </Customer>
+    <Customer>
+        <id>125</id>
+        <name>James</name>
+    </Customer>
+</Message>
