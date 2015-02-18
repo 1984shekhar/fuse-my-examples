@@ -1,4 +1,4 @@
-# example-mysql-blueprint-hibernate-bundles and cxf-blueprint-bundle
+# simple examples
 
 
 This is very simple and straight-forward example for mysql-hibernate-blueprint example. This repo is having three modules.
