@@ -17,3 +17,7 @@ Here there are three maven projects to look for
 2)jaxrs-client-blueprint: This is a client which use camel-route and act as a client to REST service.
 3)jaxrs-server-blueprint: This is a project which can be deployed in Fuse. This exposes a REST service similar to jaxrs-server-standalone but with only one operation i.e. getCustomer. 
 
+C) cxf-soap-application example
+Here there are two maven projects to look for
+1)cxf-soap-serverApplication: This exposes a cxf-soap based webservice.
+2)cxf-soap-client: This consumes a cxf-soap based webservice. This project act as soap based webservice client
