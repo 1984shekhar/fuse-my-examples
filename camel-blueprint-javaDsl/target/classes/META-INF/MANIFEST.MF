@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1424846034656
+Build-Jdk: 1.7.0_55
+Built-By: cpandey
+Bundle-ManifestVersion: 2
+Bundle-Name: A Camel Blueprint Route
+Bundle-SymbolicName: camel-blueprint-javaDsl
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.mycompany.camel.blueprint.javaDsl;uses:="org.apache.
+ camel.builder,org.apache.camel.model,org.apache.camel,org.apache.camel.
+ builder.xml";version="1.0.0.SNAPSHOT"
+Import-Package: org.apache.camel;version="[2.12,3)",org.apache.camel.bui
+ lder;version="[2.12,3)",org.apache.camel.builder.xml;version="[2.12,3)"
+ ,org.apache.camel.model;version="[2.12,3)",org.osgi.service.blueprint;v
+ ersion="[1.0.0,2.0.0)"
+Tool: Bnd-1.50.0
