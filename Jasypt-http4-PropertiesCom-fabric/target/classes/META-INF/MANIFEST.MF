@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1425383929612
+Build-Jdk: 1.7.0_55
+Built-By: cpandey
+Bundle-ManifestVersion: 2
+Bundle-Name: SG :: DEMO :: ROUTE INFO :: JASYPT
+Bundle-SymbolicName: fabric-route-info
+Bundle-Version: 1.0
+Created-By: Apache Maven Bundle Plugin
+DynamicImport-Package: *, org.apache.http, org.apache.http.*
+Export-Package: scentre.demo.route;version="1.0"
+Include-Resource: static.properties=src/main/resources/static.properties
+ ,OSGI-INF/blueprint/10-camel-context.xml=src/main/resources/OSGI-INF/bl
+ ueprint/10-camel-context.xml,OSGI-INF/blueprint/00-tpl-demo.xml=src/mai
+ n/resources/OSGI-INF/blueprint/00-tpl-demo.xml
+Private-Package: .
+Tool: Bnd-1.50.0
