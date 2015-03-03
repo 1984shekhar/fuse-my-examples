@@ -10,8 +10,6 @@ public class Venue extends RouteBuilder {
 
     }
 
-    // --------------------------------------------------------------
-    // Configures Zone Entry event sync flow
     private void venues(){
 
         //@formatter:off
