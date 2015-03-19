@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xmlns:http="http://cxf.apache.org/transports/http/configuration"
+	xmlns:sec="http://cxf.apache.org/configuration/security" xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:httpj="http://cxf.apache.org/transports/http-jetty/configuration"
+	xsi:schemaLocation="
+        http://camel.apache.org/schema/cxf 
+         http://camel.apache.org/schema/cxf/camel-cxf.xsd
+         http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
+		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd         
+         http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://camel.apache.org/schema/spring 
+         http://camel.apache.org/schema/spring/camel-spring.xsd
+         http://www.springframework.org/schema/osgi            
+          http://www.springframework.org/schema/osgi/spring-osgi.xsd
+          http://cxf.apache.org/configuration/security http://cxf.apache.org/schemas/configuration/security.xsd
+          http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+          http://cxf.apache.org/transports/http-jetty/configuration http://cxf.apache.org/schemas/configuration/http-jetty.xsd
+         
+         ">
+
+	<cxf:cxfEndpoint id="personService"
+		address="http://localhost:9000/soap/personService" serviceClass="com.mycompany.cxf.soap.endpoint.PersonService" />
+	<bean id="fakeResponse" class="com.mycompany.cxf.soap.endpoint.TestResponse" />
+	<camelContext xmlns="http://camel.apache.org/schema/spring"
+		id="CamelCotextPOC-JETTYCOnfig" trace="true">
+
+		<route id="PersonServiceRoute">
+
+			<from uri="cxf:bean:personService" />
+
+			<log message="The message contains ${body}" loggingLevel="INFO"
+				logName="INPUT" />
+
+			<process ref="fakeResponse" />
+			<!-- </threads> -->
+		</route>
+
+	</camelContext>
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass">
+			<value>org.apache.log4j.MDC</value>
+		</property>
+		<property name="targetMethod">
+			<value>put</value>
+		</property>
+		<property name="arguments">
+			<list>
+				<value>app.name</value>
+				<value>cxfLoggerTester</value>
+			</list>
+		</property>
+	</bean>
+</beans>
