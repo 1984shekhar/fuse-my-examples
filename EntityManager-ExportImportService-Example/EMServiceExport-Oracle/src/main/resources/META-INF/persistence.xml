@@ -13,9 +13,9 @@
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
     <property name="openjpa.ConnectionDriverName" value="oracle.jdbc.driver.OracleDriver" />
-			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@xxx:1521:orcl" />
-			<property name="openjpa.ConnectionUserName" value="xxx" />
-			<property name="openjpa.ConnectionPassword" value="yyy" />
+			<property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@lab-jboss-db.gsslab.pnq.redhat.com:1521:orcl" />
+			<property name="openjpa.ConnectionUserName" value="chandrashekhar" />
+			<property name="openjpa.ConnectionPassword" value="shekharchandra" />
 			<property name="openjpa.Log" value="DefaultLevel=WARN,Tool=INFO" />
 			<property name="openjpa.MetaDataFactory" value="jpa(ClasspathScan=build;lib.jar)"/>
 			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
