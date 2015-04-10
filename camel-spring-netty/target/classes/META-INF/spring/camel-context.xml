@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+
+<bean id="string-encoder" class="org.jboss.netty.handler.codec.string.StringEncoder" />
+	<bean id="string-decoder" class="org.jboss.netty.handler.codec.string.StringDecoder" />
+	<bean id="xmlDelimitter" class="com.mycompany.camel.spring.netty.XMLDelimitter" />	
+		
+	<bean id="delimiter-based-frame-decoder" class="org.jboss.netty.handler.codec.frame.DelimiterBasedFrameDecoder">		
+			<constructor-arg value="100000"/> <!-- 100000 -->
+			<constructor-arg value="false"/> <!-- false -->
+     		<constructor-arg value="#{xmlDelimitter.getXMLDelimiter()}"/>		
+	</bean>
+
+  <camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+    <route id="timerToLog">
+      <from uri="netty:tcp://localhost:7890?textline=false&amp;autoAppendDelimiter=false&amp;delimiter=NULL&amp;keepAlive=true&amp;synchronous=false&amp;orderedThreadPoolExecutor=false&amp;decoderMaxLineLength=5000&amp;disconnect=true&amp;decoders=#delimiter-based-frame-decoder,#string-decoder&amp;encoder=#string-encoder"/>
+      <log message="The message contains ${body}"/>
+    </route>
+  </camel:camelContext>
+
+</beans>
