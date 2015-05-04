@@ -4,7 +4,7 @@
 
 fabric:profile-create TestProfile
 
-fabric:profile-edit --bundles mvn:com.mycompany/fabric-route-info/1.0
+fabric:profile-edit --bundles mvn:com.mycompany/fabric-route-info/1.0 TestProfile
 
 fabric:profile-edit --features fabric-camel TestProfile
 
