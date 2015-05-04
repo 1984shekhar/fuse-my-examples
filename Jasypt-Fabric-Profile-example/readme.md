@@ -30,3 +30,5 @@ camel:route-info
 
 
 
+java -jar camel-jasypt-2.12.0.redhat-610379.jar -c encrypt -p secret -i tiger
+
