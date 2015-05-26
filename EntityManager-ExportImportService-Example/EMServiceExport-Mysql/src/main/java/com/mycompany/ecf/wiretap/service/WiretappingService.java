@@ -1,4 +1,4 @@
-package com.xchanging.ecf.wiretap.service;
+package com.mycompany.ecf.wiretap.service;
 
 import java.util.List;
 

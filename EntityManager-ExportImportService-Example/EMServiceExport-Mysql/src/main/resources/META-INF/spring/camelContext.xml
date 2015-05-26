@@ -33,7 +33,7 @@
 
 	 <osgi:service ref="wiretappingService">
         <osgi:interfaces>
-            <value>com.xchanging.ecf.wiretap.service.WiretappingServiceInterface</value>
+            <value>com.mycompany.ecf.wiretap.service.WiretappingServiceInterface</value>
         </osgi:interfaces>
     </osgi:service>
     
