@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+           xsi:schemaLocation="
+             http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+             http://camel.apache.org/schema/blueprint/cxf http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd
+             http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+  <cxf:cxfEndpoint id="helloWorldEndpoint"
+                   address="/helloWorld"
+                   serviceClass="com.helloworld.customer.HelloWorldEndpoint"                  
+                   wsdlURL="wsdl/HelloWorld.wsdl">
+        <cxf:properties>
+            <entry key="dataFormat" value="PAYLOAD"/>
+            <entry key="receiveTimeout" value="60000"/>
+            <entry key="connectionTimeout" value="60000"/>
+        </cxf:properties>
+    </cxf:cxfEndpoint>        
+                 
+           
+                          
+                 
+ <camelContext xmlns="http://camel.apache.org/schema/blueprint"> 
+ <package>com.helloworld.customer.routes</package>
+  </camelContext>
+
+  
+  
+  
+  
+
+</blueprint>
