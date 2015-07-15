@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1431673646417
+Build-Jdk: 1.7.0_55
+Built-By: cpandey
+Bundle-Description: dozer-simple-example
+Bundle-ManifestVersion: 2
+Bundle-Name: dozer-simple-example
+Bundle-SymbolicName: com.mycompany.dozer-simple-example
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+DynamicImport-Package: *
+Export-Package: com.mycompany.dozer.test;uses:="org.apache.camel,org.doz
+ er,org.apache.camel.converter.dozer";version="1.0.0.SNAPSHOT"
+Import-Package: com.veda.icc.esb.property.landtitles.xml,org.apache.came
+ l;version="[2.12,3)",org.apache.camel.converter.dozer;version="[2.12,3)
+ ",org.dozer,org.osgi.service.blueprint;version="[1.0.0,2.0.0)"
+Tool: Bnd-1.50.0

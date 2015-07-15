@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Export-Package: com.fusesource.test.mtom;uses:="javax.jws.soap,javax.a
+ ctivation,org.apache.log4j,javax.jws,javax.xml.bind.annotation,javax.
+ xml.ws,javax.xml.namespace"
+Private-Package: com.fusesource.test.mtom.v1,wsdl
+Built-By: cpandey
+Tool: Bnd-0.0.238
+Bundle-Name: MTOM Example Service
+Created-By: Apache Maven Bundle Plugin
+Require-Bundle: org.apache.cxf.bundle
+DynamicImport-Package: *
+Build-Jdk: 1.7.0_55
+Bundle-Version: 1.0.0.SNAPSHOT
+Bnd-LastModified: 1425973555309
+Bundle-ManifestVersion: 2
+Import-Package: META-INF.cxf;version="2.7.0.redhat-610379",META-INF.cx
+ f.osgi;version="2.7.0.redhat-610379",com.fusesource.test.mtom,javax.a
+ ctivation,javax.jws,javax.jws.soap,javax.xml.bind.annotation,javax.xm
+ l.namespace,javax.xml.ws,org.apache.log4j
+Bundle-SymbolicName: mtom-service
+

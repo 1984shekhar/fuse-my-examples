@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1426960011873
+Build-Jdk: 1.7.0_55
+Built-By: cpandey
+Bundle-ManifestVersion: 2
+Bundle-Name: test
+Bundle-SymbolicName: client-blueprint-em-service-import
+Bundle-Version: 1.1.0
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.mycompany.client.blueprint.service;uses:="com.xchang
+ ing.ecf.wiretap.service,org.apache.log4j,org.apache.camel";version="1.1
+ .0"
+Import-Package: com.xchanging.ecf.wiretap.service;version="[1.1,2)",org.
+ apache.camel;version="[2.12,3)",org.apache.log4j;version="[1.2,2)",org.
+ osgi.service.blueprint;version="[1.0.0,2.0.0)"
+Import-Service: com.xchanging.ecf.wiretap.service.WiretappingServiceInte
+ rface;multiple:=false;availability:=optional
+Tool: Bnd-1.50.0

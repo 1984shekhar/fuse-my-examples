@@ -1,0 +1,10 @@
+<Message Operation="DELETE">
+    <Customer>
+        <id>125</id>
+        <name>James</name>
+    </Customer>
+    <Customer>
+        <id>155</id>
+        <name>Claus</name>
+    </Customer>
+</Message>

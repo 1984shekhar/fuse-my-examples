@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<!-- <bean id="ftpServer" class="com.mycompany.camel.blueprint.ftp.test.FtpServerBean" 
+    init-method="startServer" destroy-method="shutdownServer" /> -->
+
+	<bean id="forced" class="java.lang.IllegalArgumentException">
+		<constructor-arg index="0" value="This is forced" />
+	</bean>
+	<camel:camelContext xmlns="http://camel.apache.org/schema/spring"
+		trace="true">
+		<onException>
+			<exception>java.lang.IllegalArgumentException</exception>
+			<redeliveryPolicy maximumRedeliveries="5" />
+			<to
+				uri="sftp://admin:admin@localhost:21000/target/data/outbox?maximumReconnectAttempts=0&amp;reconnectDelay=2000" />
+
+		</onException>
+
+		<route>
+			<from uri="stream:in?promptMessage=Enter something:" />
+			<throwException ref="forced" />
+
+		</route>
+	</camel:camelContext>
+
+</beans>
