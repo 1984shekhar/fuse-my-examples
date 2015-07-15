@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/blueprint"
+       xsi:schemaLocation="
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+ <bean id="myProcessor" class="com.mycompany.testpckg.TestProcessor"/>
+  <camelContext id="blueprintContext" trace="false" xmlns="http://camel.apache.org/schema/blueprint">
+
+    <route id="timerToLog">
+        <from uri="timer://foo?repeatCount=1" />
+        <process ref="myProcessor"/>
+        <log message="My Body: ${body}"/>
+        <to uri="elasticsearch://local?operation=INDEX&amp;indexName=twitter&amp;indexType=tweet"/>
+    </route>
+  </camelContext>
+
+</blueprint>
