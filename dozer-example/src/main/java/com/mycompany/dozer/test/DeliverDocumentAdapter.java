@@ -16,7 +16,7 @@ public class DeliverDocumentAdapter extends ModelAdapter {
 		request.setA(testInput);
 		request.setB(testInput);
 				
-		Response response = getMapper().map(request, Response.class, "req_resp");
+		Response response = getMapper().map(request, Response.class, "request_response");
 		return response.getA1() + ":" + response.getB1();
 			
 	}

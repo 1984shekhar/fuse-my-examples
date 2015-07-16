@@ -25,21 +25,19 @@
 
 
 	<bean id="deliverDocumentAdapter"
-		class="com.veda.icc.esb.property.landtitles.xml.DeliverDocumentAdapter">
+		class="com.mycompany.dozer.test.DeliverDocumentAdapter">
 		<property name="loader" ref="dozerConverterLoader" />
 	</bean>
 
-	<camelContext id="dozer-example" trace="true"
-		xmlns="http://camel.apache.org/schema/blueprint">
-		<route id="dozerRoute">
-			<from uri="timer://cachtimer?period=5000" />
-			<setBody>
-				<constant>dozer example</constant>
-			</setBody>
-			<to uri="bean:deliverDocumentAdapter" />
-			<log message="response is: ${body}" />
-		</route>
-
-	</camelContext>
+	<camelContext trace="true" id="dozer-example" xmlns="http://camel.apache.org/schema/blueprint">
+    <route id="dozerRoute">
+        <from uri="timer://cachtimer?period=5000"/>
+        <setBody>
+            <constant>dozer example</constant>
+        </setBody>
+        <to uri="bean:deliverDocumentAdapter"/>
+        <log message="response is: ${body}"/>
+    </route>
+</camelContext>
 
 </blueprint>
