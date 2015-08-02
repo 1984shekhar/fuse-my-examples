@@ -1,4 +1,0 @@
-idState;LabelState
-1;Alabama
-2;Alaska
-3;Arizona
