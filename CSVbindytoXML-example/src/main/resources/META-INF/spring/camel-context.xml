@@ -23,26 +23,23 @@
 
 	<!-- <bean id="csv" class="com.mycompany.camel.spring.Order" /> -->
 
-	<camelContext xmlns="http://camel.apache.org/schema/spring">
-		<dataFormats>
-			<jaxb id="myJaxb" prettyPrint="true" contextPath="org.apache.camel.bindy.model" />
-		</dataFormats>
-
-		<route>
-			<from uri="file:/home/cpandey/NotBackedUp/Downloads/input/bindy" />
-			<unmarshal ref="bindyDataformat" />
-			<log message="Route1 BODY after Parsing: ${body}" />
-			<to uri="activemq:queue:BindyDatatoXML" />
-
-		</route>
-		<route>
-			<from uri="activemq:queue:BindyDatatoXML" />
-
-			 <to uri="bean:processor" />
-			<marshal ref="myJaxb" />
-			<log message="Route2 AfterParsing......${body}" logName="message" />
-			<to uri="file:/home/cpandey/NotBackedUp/Downloads/output/bindyoutput" />
-		</route>
-	</camelContext>
+	<camelContext xmlns="http://camel.apache.org/schema/spring" trace="true">
+    <dataFormats>
+        <jaxb contextPath="org.apache.camel.bindy.model" prettyPrint="true" id="myJaxb"/>
+    </dataFormats>
+    <route id ="id1">
+        <from uri="file:/home/cpandey/NotBackedUp/Downloads/input/bindy"/>
+        <unmarshal ref="bindyDataformat"/>
+        <log message="Route1 BODY after Parsing: ${body}"/>
+        <to uri="activemq:queue:BindyDatatoXML"/>
+    </route>
+    <route id ="id2">
+        <from uri="activemq:queue:BindyDatatoXML"/>
+        <to uri="bean:processor"/>
+        <marshal ref="myJaxb"/>
+        <log message="Route2 AfterParsing......${body}" logName="message"/>
+        <to uri="file:/home/cpandey/NotBackedUp/Downloads/output/bindyoutput"/>
+    </route>
+</camelContext>
 
 </beans>
