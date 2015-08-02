@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<beans xmlns="http://www.springframework.org/schema/beans"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://camel.apache.org/schema/spring	http://camel.apache.org/schema/spring/camel-spring.xsd	   
+	   ">
+
+  
+	<!-- Route to handle reading file --><!-- Route to internal processing --><!-- Send the request to HTTP endpoint and then handle the HTTP response --><!-- Route to handle HTTP response --><!-- Route to handle Dead Letter Channel --><!-- <transacted/> --><camelContext trace="true" id="file_jms_http_error_adapter" xmlns="http://camel.apache.org/schema/spring">
+    <route autoStartup="true" errorHandlerRef="DLCErrorHandler" startupOrder="1" streamCache="true" trace="true" id="File_Read">
+        <from uri="file:///home/cpandey/NotBackedUp/Downloads/TESTING/"/>
+        <convertBodyTo type="java.lang.String" charset="UTF-8"/>
+        <to uri="activemqLocal:queue:INTERNAL"/>
+    </route>
+    <route autoStartup="true" errorHandlerRef="DLCErrorHandler" startupOrder="2" streamCache="true" trace="true" id="JMS_Internal">
+        <from uri="activemqLocal:queue:INTERNAL"/>
+        <setHeader headerName="JMSCorrelationID">
+            <simple>${in.header.JMSMessageID}</simple>
+        </setHeader>
+        <setHeader headerName="Date">
+            <simple>${date:now:yyyy-MM-dd'T'HH:mm:ss.SSS.Z}</simple>
+        </setHeader>
+        <to uri="activemqLocal:queue:LOG"/>
+        <setHeader headerName="CamelHttpMethod">
+            <simple>POST</simple>
+        </setHeader>
+        <to uri="http://localhost:8000/test"/>
+        <to uri="direct:HTTP.RESPONSE"/>
+    </route>
+    <route autoStartup="true" errorHandlerRef="DLCErrorHandler" trace="true" id="HTTP_Response">
+        <from uri="direct:HTTP.RESPONSE"/>
+        <convertBodyTo type="java.lang.String" charset="UTF-8"/>
+        <choice>
+            <when>
+                <simple>$simple{in.header.CamelHttpResponseCode} == 200</simple>
+                <setHeader headerName="Date">
+                    <simple>${date:now:yyyy-MM-dd'T'HH:mm:ss.SSS.Z}</simple>
+                </setHeader>
+                <to uri="activemqLocal:queue:SUCCESS"/>
+                <to uri="activemqLocal:queue:LOG"/>
+            </when>
+            <otherwise>
+                <setHeader headerName="Exception">
+                    <simple>${in.header.CamelHttpResponseCode}</simple>
+                </setHeader>
+                <setHeader headerName="Date">
+                    <simple>${date:now:yyyy-MM-dd'T'HH:mm:ss.SSS.Z}</simple>
+                </setHeader>
+                <to uri="activemqLocal:queue:FAILURE"/>
+                <to uri="activemqLocal:queue:LOG"/>
+            </otherwise>
+        </choice>
+    </route>
+    <route autoStartup="true" trace="true" id="DLC_Error_Handler">
+        <from uri="direct:DLC.ERROR"/>
+        <convertBodyTo type="java.lang.String" charset="UTF-8"/>
+        <log message="Within DeadLetter Channel: ${body}"/>
+        <setHeader headerName="Exception">
+            <simple>The server encountered an unexpected condition which prevented it from fulfilling the request with error message: ${exception.message}</simple>
+        </setHeader>
+        <setHeader headerName="Date">
+            <simple>${date:now:yyyy-MM-dd'T'HH:mm:ss.SSS.Z}</simple>
+        </setHeader>
+        <to uri="activemqLocal:queue:LOG"/>
+    </route>
+</camelContext>
+	   
+	<!-- Dead Letter Channel Bean -->
+	<bean id="DLCErrorHandler" class="org.apache.camel.builder.DeadLetterChannelBuilder">
+		<property name="deadLetterUri" value="direct:DLC.ERROR" />
+		<property name="redeliveryPolicy" ref="redeliveryPolicy"/>
+		<property name="useOriginalMessage" value="true"/>
+	</bean>
+	
+	<!-- Redelivery Policy -->
+	<bean id="redeliveryPolicy" class="org.apache.camel.processor.RedeliveryPolicy">
+		<property name="maximumRedeliveries" value="3"/>
+		<property name="redeliveryDelay" value="5000"/>
+		<!-- <property name="delayPattern" value="0:10000;6:30000;18:90000"/> -->
+		<property name="maximumRedeliveries" value="3"/>
+	</bean>
+
+	<!-- Bean for Local JMS Connection -->
+	<bean id="activemqLocal" class="org.apache.activemq.camel.component.ActiveMQComponent">
+		<property name="connectionFactory" ref="localJmsConnectionFactory"/>
+		<property name="transacted" value="true"/>
+		<property name="transactionManager" ref="localJmsTransactionManager"/>
+	</bean>
+	
+	<bean id="localJmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="failover://(tcp://localhost:61616)" />
+		<property name="userName" value="admin" />
+		<property name="password" value="admin" />
+	</bean>
+	
+	<!-- Bean for Local JMS Transaction Manager -->
+	<bean id="localJmsTransactionManager" class="org.springframework.jms.connection.JmsTransactionManager">
+		<property name="connectionFactory" ref="localJmsConnectionFactory" />
+	</bean>	
+</beans>
