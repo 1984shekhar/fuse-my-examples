@@ -14,6 +14,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.bindy.model.ObjectFactory;
 import org.apache.camel.bindy.model.Order;
+import org.apache.camel.bindy.model.OrderTag;
 import org.apache.camel.bindy.model.OrderBase;
 import org.apache.log4j.Logger;
 
@@ -26,17 +27,18 @@ public class Student1 implements Processor{
 		// TODO Auto-generated method stub
 		 Logger log = Logger.getLogger(getClass());
 		log.info("Within Student1 Processor...");
-		List<Map<String, Order>> unmarshaledModels = (List<Map<String, Order>>) arg0.getIn().getBody();
+		List<Map<String, OrderTag>> unmarshaledModels = (List<Map<String, OrderTag>>) arg0.getIn().getBody();
 		
 		ObjectFactory objectFactory = new ObjectFactory();
 		OrderBase orderBase = objectFactory.createOrderBase();
-
-		Iterator<Map<String, Order>> orderIterator = unmarshaledModels.iterator();
+		Order order = objectFactory.createOrder();
+		Iterator<Map<String, OrderTag>> orderIterator = unmarshaledModels.iterator();
       while (orderIterator.hasNext()) {
-         Map<String, Order> orderMap = orderIterator.next();
+         Map<String, OrderTag> orderMap = orderIterator.next();
          
-         orderBase.setOrder(orderMap.get(Order.class.getName()));
+         order.setOrdersTag(orderMap.get(OrderTag.class.getName()));
       }
+      orderBase.setOrder(order);
       arg0.getIn().setBody(orderBase);
 	
 

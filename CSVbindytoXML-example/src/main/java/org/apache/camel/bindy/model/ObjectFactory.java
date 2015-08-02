@@ -31,8 +31,12 @@ public class ObjectFactory {
    }
 
   
-   public Order createOrder() {
-      return new Order();
+   public OrderTag createOrderTag() {
+      return new OrderTag();
+   }
+   
+   public Order createOrder(){
+	   return new Order();
    }
 
 }

@@ -15,19 +15,22 @@ import org.apache.log4j.Logger;
 
 /*@XmlSeeAlso(Order.class)*/
 
-@XmlType(name = "OrderBase", propOrder = { "orders" })
+
 @XmlRootElement(name = "OrderBase")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "OrderBase", propOrder = { "id", "order" })
 public class OrderBase implements Serializable {
 
+	private int id = 1;
+	
 	@XmlElement(name = "order")
-	protected List<Order> orders = null;
+	protected List<Order> order = null;
 
 	public List<Order> getOrders() {
-		if (orders == null) {
-			orders = new ArrayList<Order>();
+		if (order == null) {
+			order = new ArrayList<Order>();
 		}
-		return this.orders;
+		return this.order;
 	}
 
 	public OrderBase() {
@@ -39,6 +42,14 @@ public class OrderBase implements Serializable {
 
 	public void setOrder(Order order) {
 		this.getOrders().add(order);
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = 1;
 	}
 
 	/*

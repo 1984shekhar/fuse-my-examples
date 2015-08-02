@@ -13,7 +13,7 @@ import org.apache.camel.dataformat.bindy.annotation.DataField;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @CsvRecord(separator = ";", skipFirstLine = true, crlf = "UNIX")
-public class Order implements Serializable {
+public class OrderTag implements Serializable {
 
 	@DataField(pos = 1)
 	@XmlElement(required = true)
