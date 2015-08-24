@@ -7,7 +7,7 @@
        http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
- <cxf:rsServer id="rsServer" address="http://localhost:9000"
+ <cxf:rsServer id="rsServer" address="http://localhost:9000/testREST"
                       serviceClass="com.mycompany.example.jaxrsExampleService.CustomerService"/>
 
         <camelContext xmlns="http://camel.apache.org/schema/blueprint" >

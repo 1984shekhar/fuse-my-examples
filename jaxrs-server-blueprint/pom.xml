@@ -15,6 +15,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <camel.version>2.15.1.redhat-620133</camel.version>
   </properties>
 
   <repositories>
@@ -93,23 +94,19 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>
-      <version>2.12.0.redhat-610379</version>
+      <version>${camel.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-blueprint</artifactId>
-      <version>2.12.0.redhat-610379</version>
+      <version>${camel.version}</version>
     </dependency>
-	<dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-            <version>2.6.0.fuse-71-047</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-transports-http-jetty</artifactId>
-            <version>2.6.0.fuse-71-047</version>
-        </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-cxf</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+	
     <!-- logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -133,12 +130,12 @@
     </dependency>
 
     <!-- testing -->
-    <dependency>
+   <!--  <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-test-blueprint</artifactId>
       <version>2.12.0.redhat-610379</version>
       <scope>test</scope>
-    </dependency>
+    </dependency> -->
   </dependencies>
 
   <build>
@@ -179,14 +176,14 @@
       </plugin>
 
       <!-- to run the example using mvn camel:run -->
-      <plugin>
+     <!--  <plugin>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-maven-plugin</artifactId>
         <version>2.12.0.redhat-610379</version>
         <configuration>
           <useBlueprint>true</useBlueprint>
         </configuration>
-      </plugin>
+      </plugin> -->
 
     </plugins>
   </build>

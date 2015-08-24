@@ -10,7 +10,7 @@ To deploy the project in OSGi. For example using Apache ServiceMix
 or Apache Karaf. You can run the following command from its shell:
 
     osgi:install -s mvn:com.mycompany.example/jaxrsExampleService/1.0.0-SNAPSHOT
-
+http://localhost:9000/testREST/customerservice/customers/123
     
     
 This project is simple example of cxf REST webservice, which provides operation getCustomer. If customer-id is provided in request, it gives customer detail as output.
