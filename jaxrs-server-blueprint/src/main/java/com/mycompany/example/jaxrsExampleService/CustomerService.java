@@ -20,11 +20,13 @@ package com.mycompany.example.jaxrsExampleService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 @Path("/customerservice/")
 public class CustomerService {
     @GET
     @Path("/customers/{id}/")
+    @Produces( "application/xml" )
     public Customer getCustomer(String id) {
        return null;
     }
