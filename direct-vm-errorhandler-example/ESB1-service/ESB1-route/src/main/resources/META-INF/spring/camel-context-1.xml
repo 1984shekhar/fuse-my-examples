@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+	
+	<!-- 	 <context:property-placeholder properties-ref="props" /> 
+	<osgix:cm-properties id="props" persistent-id="example1" /> -->
+	 <bean id="string-decoder" class="org.jboss.netty.handler.codec.string.StringDecoder"/>
+	<camelContext trace="false" id="sample-service-1"	xmlns="http://camel.apache.org/schema/spring">
+		<!-- Configuration at the Camel Context Level -->
+		<!-- <propertyPlaceholder location="ref:props" id="properties"/> -->
+<!-- 		<onException useOriginalMessage="true">
+			<exception>java.lang.Exception</exception>
+			<log message="...............within exception..................."/>
+			<handled>
+				<constant>true</constant>
+			</handled>
+			<log message="inside onexception 1......"></log>
+			<camel:continued><camel:constant>true</camel:constant></camel:continued>
+			<continued><constant>true</constant></continued>
+			<transform><simple>&lt;xml&gt; &lt;status&gt;Error&lt;/status&gt; &lt;/xml&gt;</simple></transform>
+		</onException> -->
+		
+		<route id="route-tcpendpoint" startupOrder="10">
+			 <from uri="netty:tcp://localhost:9999?decoders=#string-decoder&amp;sync=false" /> 
+			 <to uri="direct:route1"/>
+		</route>
+		
+		<route id="route-callingdirectvmendpoint" streamCache="true">
+			<from uri="direct:route1"/>
+			<doTry>
+			<to uri="direct-vm:camelcontext2"/>
+			<doCatch>
+			<exception>java.lang.Exception</exception>
+			<log message="inside onexception 1......"></log>
+			</doCatch>
+			<doFinally>
+			<log message="response-${body}" loggingLevel="INFO"/>
+			</doFinally>
+			<!-- <log message="HELLO" />
+			<to uri="xslt:file://home/cpandey/NotBackedUp/Downloads/sample/ESB1-service/ESB1-route/src/main/resources/META-INF/spring/sample1.xsl"/> -->
+			
+			</doTry>
+		</route>
+	</camelContext>
+</beans>

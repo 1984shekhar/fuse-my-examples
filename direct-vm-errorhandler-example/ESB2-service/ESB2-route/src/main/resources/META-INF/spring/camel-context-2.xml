@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:context="http://www.springframework.org/schema/context" xmlns:osgix="http://www.springframework.org/schema/osgi-compendium" xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd 
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd	
+http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
+	
+	<!-- 	 <context:property-placeholder properties-ref="props" /> 
+	<osgix:cm-properties id="props" persistent-id="example2" /> -->
+	
+<!-- 	<bean id="http" class="org.apache.camel.component.http.HttpComponent">
+		<property name="httpConnectionManager" ref="myHttpConnectionManager" />
+	</bean>
+	<bean id="myHttpConnectionManager"
+		class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager">
+		<property name="params" ref="myHttpConnectionManagerParams" />
+	</bean>
+	<bean id="myHttpConnectionManagerParams"
+		class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
+		<property name="defaultMaxConnectionsPerHost" value="5" />
+	</bean> -->
+	<bean id="noErrorHandler" class="org.apache.camel.builder.NoErrorHandlerBuilder"/>
+	<bean id="forced" class="java.lang.IllegalArgumentException">
+   <constructor-arg index="0" value="This is forced"/>
+</bean>
+	<camelContext trace="false" id="sample-service-2"	xmlns="http://camel.apache.org/schema/spring">
+		<!-- Configuration at the Camel Context Level -->
+		<!-- <propertyPlaceholder location="ref:props" id="properties"/> -->
+		<onException useOriginalMessage="true">
+			<exception>java.lang.Exception</exception>
+			<handled>
+				<constant>true</constant>
+			</handled>
+			<log message="inside onexception 2......"></log>
+			<transform><simple>&lt;xml&gt; &lt;status&gt;Error in service2&lt;/status&gt; &lt;/xml&gt;</simple></transform>
+		</onException>
+		
+		<!-- <route id="route-sample-http-endpoint">
+			<from uri="jetty:http://0.0.0.0/Services/sample"/>
+			<to uri="http://10.1.16.202"/>
+			<log message="Request-${body}"/>
+		</route> -->
+		
+		<route id="route-sample-directvm-endpoint" startupOrder="10" errorHandlerRef="noErrorHandler">
+			<from uri="direct-vm:camelcontext2"/>
+			<throwException ref="forced"></throwException>
+			<log message="Request-${body}"/>
+		</route>
+	</camelContext>
+</beans>

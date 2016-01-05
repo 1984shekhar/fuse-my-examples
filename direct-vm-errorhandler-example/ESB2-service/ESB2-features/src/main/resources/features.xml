@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features>
+
+	<repository>mvn:org.apache.camel.karaf/apache-camel/${camel-version}/xml/features</repository>
+	<repository>mvn:org.apache.activemq/activemq-karaf/${activemq-version}/xml/features</repository>
+	<repository>mvn:org.apache.karaf.assemblies.features/enterprise/${karaf-version}/xml/features</repository>
+	<repository>mvn:org.apache.karaf.assemblies.features/standard/${karaf-version}/xml/features</repository>
+	<repository>mvn:io.fabric8/fabric8-karaf/${fabric-version}/xml/features</repository>
+	<repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf-version}/xml/features</repository>
+	<repository>mvn:io.hawt/hawtio-karaf/${hawtio-version}/xml/features</repository>
+
+  <feature name='ESB2-features' version='${project.version}'>
+  	<feature>hawtio</feature>	
+  	<feature>camel-core</feature>
+  	<feature>camel-spring</feature>
+  	<feature>camel-jms</feature>
+	<feature>camel-jaxb</feature>
+	<feature>activemq-camel</feature>
+  	<feature>camel-xstream</feature>
+  	<feature>mq-fabric</feature>
+  	<feature>camel-saxon</feature>
+  	<feature>spring-jdbc</feature>
+    <bundle start='false'>mvn:ESB2-route/${project.version}</bundle>
+  </feature>
+  </features>

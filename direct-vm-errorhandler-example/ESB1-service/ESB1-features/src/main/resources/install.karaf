@@ -1,0 +1,4 @@
+
+fabric:profile-edit -r mvn:com.cbq/cards-services-features/${project.version}/xml/features cbq-profile3
+fabric:profile-edit -f cards-services-features cbq-profile3
+fabric:profile-refresh cbq-profile3
