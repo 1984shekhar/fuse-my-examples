@@ -15,7 +15,7 @@ public class ActivatorClass implements BundleActivator {
 		ServiceReference[] serviceReferences= bundleContext.getAllServiceReferences(null, null);
 		for(ServiceReference servicereference:serviceReferences){
 			
-			if((servicereference.toString()).equalsIgnoreCase("[com.xchanging.ecf.wiretap.service.WiretappingServiceInterface]"))
+			if((servicereference.toString()).equalsIgnoreCase("[com.abc.com]"))
 			{
 				System.out.println(servicereference.toString());
 				serviceReference = servicereference;
