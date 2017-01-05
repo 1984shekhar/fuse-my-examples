@@ -16,14 +16,16 @@
      permissions and limitations under the License.
 
 -->
-<features name="esb-transactions-${project.version}">
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0" name="esb-transactions-${project.version}">
 
-    <feature name="transactions-demo" version="${project.version}">
+    <feature name="transactions-demo"  version="${project.version}">
         <feature>jdbc-driver-${database}</feature>
         <feature>jpa</feature>
         <feature>activemq</feature>
         <feature>jndi</feature>
         <feature version="${feature.camel.version}">camel-blueprint</feature>
+        <feature version="${feature.camel.version}">camel-spring</feature>
+        <feature version="${feature.camel.version}">spring-tx</feature>
         <feature version="${feature.camel.version}">camel-jpa</feature>
         <feature version="${feature.camel.version}">camel-jms</feature>
         <feature>jpa-hibernate</feature>
@@ -43,8 +45,9 @@
 		<bundle>wrap:file:///home/cpandey/NotBackedUp/Development/mysql-connector-java-5.1.34/mysql-connector-java-5.1.34-bin.jar</bundle>
         <!-- should be part of "transaction/3.1.1" feature -->
         <bundle>mvn:org.apache.aries.transaction/org.apache.aries.transaction.jdbc/${aries.transaction.jdbc.version}</bundle>
-        <bundle>mvn:org.apache.commons/commons-pool2/${commons.pool2.version}</bundle>
-        <bundle>mvn:commons-dbcp/commons-dbcp/1.4</bundle>
+        <bundle>wrap:mvn:cglib/cglib/2.2</bundle>
+        <bundle>wrap:mvn:org.apache.commons/commons-pool2/${commons.pool2.version}</bundle>
+        <bundle>wrap:mvn:commons-dbcp/commons-dbcp/1.4</bundle>
         <bundle>mvn:org.apache.commons/commons-dbcp2/${commons.dbcp2.version}</bundle>
     </feature>
 
