@@ -30,7 +30,7 @@
   <url>http://www.myorganization.org</url>
   
   <properties>
-        <camel.version>2.10.0.fuse-71-047</camel.version>
+        <camel.version>2.24.2</camel.version>
   </properties>
 
  <repositories>
