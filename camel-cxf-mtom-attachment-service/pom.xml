@@ -13,7 +13,7 @@
 	<name>MTOM Example Service</name>
 	 <version>1.0-SNAPSHOT</version>
 	<properties>
-	  <camel-version>2.12.0.redhat-610379</camel-version>
+	  <camel-version>2.24.2</camel-version>
 	  <log4j-version>1.2.16</log4j-version>
 	  <build-helper-maven-plugin.version>1.5</build-helper-maven-plugin.version>
 	  <!-- used to generate features.xml -->
