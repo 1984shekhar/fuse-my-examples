@@ -9,7 +9,7 @@
 
     <properties>
         <camel.version>2.10.0.fuse-71-047</camel.version>
-        <cxf.version>2.6.0.fuse-71-047</cxf.version>
+        <cxf.version>2.6.11</cxf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
