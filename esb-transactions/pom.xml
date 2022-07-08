@@ -44,7 +44,7 @@
         <logback.version>1.1.2</logback.version>
         <karaf.version>2.4.0.redhat-620133</karaf.version>
         <!-- <camel.version>2.15.1.redhat-620133</camel.version> -->
-        <camel.version>2.12.0.redhat-610379</camel.version>
+        <camel.version>2.24.0</camel.version>
         <activemq.version>5.9.0.redhat-610379</activemq.version>
         <!--hibernate.version>4.2.19.Final-redhat-1</hibernate.version-->
         <hibernate.version>4.2.19.Final</hibernate.version>
